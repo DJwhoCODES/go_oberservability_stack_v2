@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package post;
+
+option go_package = "gen/post";
+
+service PostService{
+    rpc CreatePost(CreatePostRequest) returns (CreatePostResponse);
+    rpc GetPost(GetPostRequest) returns (GetPostResponse);
+    
+    rpc GetFeed(GetFeedRequest) returns (GetFeedResponse);
+    
+    rpc LikePost(LikePostRequest) returns (LikePostResponse);
+    rpc GetUserPosts(GetUserPostsRequest) returns (GetUserPostsResponse);
+}
+
+message CreatePostRequest {
+    string user_id = 1;
+    string content = 2;
+}
+
+message CreatePostResponse {
+    string post_id = 1;
+}
+
+message GetPostRequest {
+    string post_id = 1;
+}
+
+message GetPostResponse {
+    string post_id = 1;
+    string user_id = 2;
+    string content = 3;
+    int32 likes = 4;
+}
+
+message GetFeedRequest {
+    string user_id = 1;
+}
+
+message PostItem {
+  string post_id = 1;
+  string user_id = 2;
+  string content = 3;
+  int32 likes = 4;
+}
+
+message GetFeedResponse {
+    repeated PostItem posts = 1;
+}
+
+message LikePostRequest {
+    string user_id = 1;
+    string post_id = 2;
+}
+
+message LikePostResponse {
+    bool success = 1;
+}
+
+message GetUserPostsRequest {
+    string user_id = 1;
+}
+
+message GetUserPostsResponse {
+    repeated PostItem posts = 1;
+}

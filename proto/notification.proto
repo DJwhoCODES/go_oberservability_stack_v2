@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package notification;
+
+option go_package = "gen/notification";
+
+service NotificationService {
+  rpc SendNotification(SendNotificationRequest) returns (SendNotificationResponse);
+  rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse);
+}
+
+message SendNotificationRequest {
+  string user_id = 1;
+  string type = 2;
+  string message = 3;
+}
+
+message SendNotificationResponse {
+  bool success = 1;
+}
+
+message GetNotificationsRequest {
+  string user_id = 1;
+}
+
+message NotificationItem {
+  string id = 1;
+  string type = 2;
+  string message = 3;
+  int64 created_at = 4;
+}
+
+message GetNotificationsResponse {
+  repeated NotificationItem notifications = 1;
+}

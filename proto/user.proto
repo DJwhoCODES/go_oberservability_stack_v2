@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "gen/user";
+
+service UserService {
+    rpc Signup(SignupRequest) returns (SignupResponse);
+    rpc Login(LoginRequest) returns (LoginResponse);
+
+    rpc GetUserProfile(GetUserProfileRequest) returns (GetUserProfileResponse);
+    rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
+
+    rpc FollowUser(FollowUserRequest) returns (FollowUserResponse);
+}
+
+message SignupRequest {
+    string username = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message SignupResponse {
+    string user_id = 1;
+}
+
+message LoginRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    string token = 1;
+}
+
+message GetUserProfileRequest {
+    string user_id = 1;
+}
+
+message GetUserProfileResponse {
+    string user_id = 1;
+    string username = 2;
+    string bio = 3;
+    int32 followers = 4;
+    int32 following = 5;
+}
+
+message UpdateProfileRequest {
+    string user_id = 1;
+    string bio = 2;
+}
+
+message UpdateProfileResponse {
+    bool success = 1;
+}
+
+message FollowUserRequest {
+    string user_id = 1;
+    string target_user_id = 2;
+}
+
+message FollowUserResponse {
+    bool success = 1;
+}
